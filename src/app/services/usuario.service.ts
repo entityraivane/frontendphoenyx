@@ -1,0 +1,73 @@
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { catchError, map, of, tap, Observable } from 'rxjs';
+import { authGoogle, authSistema, respAuth } from '../interfaces/authgoogle';
+import { registroUsuario } from '../interfaces/usuario.interface';
+import { environment } from 'src/environments/environment.development';
+const api_url = environment.url_api;
+const firebaseConfig = {
+  apiKey: 'AIzaSyAs-iRZxWYyP2gOgy-SX1ES47yQtxKM-so',
+  authDomain: 'tienda-project-484cf.firebaseapp.com',
+  projectId: 'tienda-project-484cf',
+  storageBucket: 'tienda-project-484cf.appspot.com',
+  messagingSenderId: '704378876516',
+  appId: '1:704378876516:web:cc492e8eccc587e4c56571',
+};
+@Injectable({
+  providedIn: 'root',
+})
+export class UsuarioService {
+  public usuario: any;
+  constructor(private http: HttpClient) {}
+  guardarLocalStorage(token: string) {
+    localStorage.setItem('token', token);
+  }
+  get token(): string {
+    return localStorage.getItem('token') || '';
+  }
+  get headers() {
+    return {
+      headers: {
+        'x-token': this.token,
+      },
+    };
+  }
+  validarToken(): Observable<boolean> {
+    return this.http
+      .get(`${api_url}/auth/renovar`, {
+        headers: {
+          'x-token': this.token,
+        },
+      })
+      .pipe(
+        map((resp: any) => {
+          console.log(resp); //TODO: ver la respuesta del token
+          this.usuario = resp.usuario;
+          this.guardarLocalStorage(resp.token);
+          return true;
+        }),
+        catchError((error) => of(false))
+      );
+  }
+  logingoogle(body: authGoogle) {
+    const url = `${api_url}/auth/tokenfirebase`;
+    return this.http.post<respAuth>(url, body).pipe(
+      tap((resp) => {
+        this.usuario = resp.usuario;
+      })
+    );
+  }
+  loginSistema(body: authSistema) {
+    const url = `${api_url}/auth/login`;
+    return this.http.post<respAuth>(url, body).pipe(
+      tap((resp) => {
+        this.usuario = resp.usuario;
+        localStorage.setItem('token', resp.token);
+      })
+    );
+  }
+  registroSistema(body: registroUsuario) {
+    const url = `${api_url}/usuario`;
+    return this.http.post(url, body).pipe(tap());
+  }
+}
