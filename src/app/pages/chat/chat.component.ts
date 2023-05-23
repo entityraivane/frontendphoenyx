@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
-
+import { Component ,OnInit} from '@angular/core';
+declare function iniciarpopup():any
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.css']
 })
-export class ChatComponent {
-
+export class ChatComponent implements OnInit {
+  ngOnInit(): void {
+    iniciarpopup()
+  }
 }

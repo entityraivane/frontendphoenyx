@@ -8,6 +8,8 @@ import { ChatComponent } from './chat/chat.component';
 import { NotificacionesComponent } from './notificaciones/notificaciones.component';
 import { SharedModule } from '../shared/shared.module';
 import { RouterModule } from '@angular/router';
+import { PerfilComponent } from './perfil/perfil.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -15,11 +17,14 @@ import { RouterModule } from '@angular/router';
     PagesComponent,
     DashboardComponent,
     ChatComponent,
-    NotificacionesComponent
+    NotificacionesComponent,
+    PerfilComponent
   ],
   imports: [
     CommonModule,
     RouterModule,
+    FormsModule,
+    ReactiveFormsModule,
     PagesRoutingModule,
     SharedModule,
     

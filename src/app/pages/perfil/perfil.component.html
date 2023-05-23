@@ -1,0 +1,184 @@
+<div class="mb-9">
+  <div class="row g-6">
+    <div class="col-12 col-xl-4">
+      <div class="card cover-image mb-5">
+        <div
+          class="card-header hover-actions-trigger position-relative mb-6"
+          style="min-height: 130px"
+        >
+          <div
+            class="bg-holder"
+            style="
+              background-image: linear-gradient(
+                  0deg,
+                  #000000 -3%,
+                  rgba(0, 0, 0, 0) 83%
+                ),
+                url(../../assets/img/generic/59.png);
+            "
+          >
+            <input class="d-none" id="upload-cover-image" type="file" /><label
+              class="cover-image-file-input"
+              for="upload-cover-image"
+            ></label>
+            <div class="hover-actions end-0 bottom-0 pe-1 pb-2 text-white">
+              <span class="fa-solid fa-camera me-2"></span>
+            </div>
+          </div>
+          <input class="d-none" id="upload-porfile-picture" type="file" /><label
+            class="avatar avatar-4xl status-online feed-avatar-profile cursor-pointer"
+            for="upload-porfile-picture"
+            ><img
+              class="rounded-circle img-thumbnail bg-white shadow-sm"
+              [src]="usuario.img"
+              width="200"
+              alt=""
+          /></label>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-12">
+              <div class="d-flex flex-wrap mb-2 align-items-center">
+                <h3 class="me-2">{{ usuario.nombre || "Sin nombre" }}</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-xl-8">
+      <form
+        action=""
+        class="needs-validation"
+        novalidate
+        (ngSubmit)="guardarCambios()"
+        [formGroup]="form"
+      >
+        <div class="border-bottom border-300 mb-4">
+          <div class="mb-6">
+            <h4 class="mb-4">Personal Information</h4>
+            <div class="row g-3">
+              <div class="col-12 col-sm-6">
+                <div class="form-icon-container">
+                  <div class="form-floating">
+                    <input
+                      class="form-control form-icon-input"
+                      id="firstName"
+                      type="text"
+                      placeholder="First Name"
+                      formControlName="nombre"
+                      name="nombre"
+                      [(ngModel)]="usuario.nombre"
+                      required
+                    /><label class="text-700 form-icon-label" for="firstName"
+                      >NOMBRE</label
+                    >
+                  </div>
+                  <span
+                    class="fa-solid fa-user text-900 fs--1 form-icon"
+                  ></span>
+                </div>
+              </div>
+              <div class="col-12 col-sm-6">
+                <div class="form-icon-container">
+                  <div class="form-floating">
+                    <input
+                      class="form-control form-icon-input"
+                      id="emailSocial"
+                      type="email"
+                      placeholder="Email"
+                      formControlName="correo"
+                      [(ngModel)]="usuario.correo"
+                      name="correo"
+                      required
+                    /><label class="text-700 form-icon-label" for="emailSocial"
+                      >CORREO</label
+                    >
+                  </div>
+                  <span
+                    class="fa-solid fa-envelope text-900 fs--1 form-icon"
+                  ></span>
+                </div>
+              </div>
+              <div class="col-12 col-sm-6">
+                <div class="form-icon-container">
+                  <div class="form-floating">
+                    <input
+                      class="form-control form-icon-input"
+                      id="phone"
+                      type="tel"
+                      placeholder="Phone"
+                      [(ngModel)]="usuario.telefono"
+                      name="telefono"
+                      formControlName="telefono"
+                      required
+                    /><label class="text-700 form-icon-label" for="phone"
+                      >NUMERO CELULAR</label
+                    >
+                  </div>
+                  <span
+                    class="fa-solid fa-phone text-900 fs--1 form-icon"
+                  ></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="row g-3 mb-6"
+            *ngIf="
+              !(usuario.session == 'google' || usuario.session == 'facebook')
+            "
+          >
+            <div class="col-12 col-sm-6">
+              <h4 class="mb-4">Change Password</h4>
+              <div class="form-icon-container mb-3">
+                <div class="form-floating">
+                  <input
+                    class="form-control form-icon-input"
+                    id="oldPassword"
+                    type="password"
+                    placeholder="Old password"
+                  /><label class="text-700 form-icon-label" for="oldPassword"
+                    >Old Password</label
+                  >
+                </div>
+                <span class="fa-solid fa-lock text-900 fs--1 form-icon"></span>
+              </div>
+              <div class="form-icon-container mb-3">
+                <div class="form-floating">
+                  <input
+                    class="form-control form-icon-input"
+                    id="newPassword"
+                    type="password"
+                    placeholder="New password"
+                  /><label class="text-700 form-icon-label" for="newPassword"
+                    >New Password</label
+                  >
+                </div>
+                <span class="fa-solid fa-key text-900 fs--1 form-icon"></span>
+              </div>
+              <div class="form-icon-container">
+                <div class="form-floating">
+                  <input
+                    class="form-control form-icon-input"
+                    id="newPassword2"
+                    type="password"
+                    placeholder="Confirm New password"
+                  /><label class="text-700 form-icon-label" for="newPassword2"
+                    >Confirm New Password</label
+                  >
+                </div>
+                <span class="fa-solid fa-key text-900 fs--1 form-icon"></span>
+              </div>
+            </div>
+          </div>
+          <div class="text-end mb-6">
+            <button type="submit" class="btn btn-phoenix-primary">
+              Guardar
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
